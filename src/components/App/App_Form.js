@@ -37,10 +37,10 @@ class Form extends React.Component {
 
                     <div>
                         <div>
-                            <label>List of Reducers: </label>
-                            <Field name="add-reducer" component="select">
+                            <label>List of Actions: </label>
+                            <Field name="add-action" component="select">
                                 <option />
-                                <option>Reducer1</option>
+                                <option>Action1</option>
                             </Field>
                         </div>
                         <div>
@@ -62,25 +62,63 @@ class Form extends React.Component {
                     <br />
 
                     <div>
-                        <Field 
-                            label="Reducer Name"
-                            name="reducer"
-                            component={this.renderField}
-                        />
+                        <div>
+                            <label>List of Reducers: </label>
+                            <Field name="add-reducer" component="select">
+                                <option />
+                                <option>Reducer1</option>
+                            </Field>
+                        </div>
+                        <div>
+                            <Field 
+                                label="Reducer Name"
+                                name="reducer"
+                                component={this.renderField}
+                            />
+                        </div>
+                        <div>
+                            <label>Reducer Logic (Optional): </label>
+                            <Field 
+                                name="reducer-logic"
+                                component="textarea"
+                            />
+                        </div>
+                        <div>
+                            <label>Initial State (Optional): </label>
+                            <Field 
+                                name="initial-state"
+                                component="textarea"
+                            />
+                        </div>
                     </div>
                     <p>----------------</p>
                     <br />
 
                     <div>
-                        <Field 
-                            label="Component Name"
-                            name="component"
-                            component={this.renderField}
-                        />
+                        <div>
+                            <Field 
+                                label="Component Name"
+                                name="component"
+                                component={this.renderField}
+                            />
+                        </div>
+                        <div>
+                            <label>Connect Actions: </label>
+                            <Field name="connect-actions" component="select">
+                                <option />
+                                <option>Action1</option>
+                            </Field>
+                            <label>Connect Reducers: </label>
+                            <Field name="connect-reducers" component="select">
+                                <option />
+                                <option>Reducer1</option>
+                            </Field>
+                        </div>
                     </div>
                     <p>----------------</p>
                     <br />
 
+                    <button>Reset</button>
                     <button type="submit">Submit</button>
                 </form>
             </div>
