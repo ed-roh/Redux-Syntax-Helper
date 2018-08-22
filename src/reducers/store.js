@@ -1,9 +1,9 @@
 import { reducer as formReducer } from 'redux-form';
 import { combineReducers } from 'redux';
-import reducer1 from './reducer1';
+import list from './list';
 
 const rootReducer = combineReducers({
-    reducer1: reducer1,
+    list: list,
     form: formReducer
 })
 
