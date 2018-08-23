@@ -4,9 +4,9 @@ import AppRouter from './router/AppRouter';
 import './styles/styles.scss';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import reduce from './reducers/store';
+import rootReducer from './reducers/store';
 
-const store = createStore(reduce);
+const store = createStore(rootReducer);
 
 ReactDOM.render(
     <Provider store={store}>
