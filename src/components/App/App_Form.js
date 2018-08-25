@@ -1,13 +1,16 @@
 import React from 'react';
 import { Field, FieldArray, reduxForm, formValueSelector } from 'redux-form';
+import Action from './Action';
+import Reducer from './Reducer';
+import ComponentFile from './ComponentFile';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
             storeNameChange, 
-            actionName, actionLogic, saveAction,
-            reducerName, reducerState, reducerLogic, saveReducer,
-            componentName, saveComponent
-} from '../../actions/List';
+            actionName, actionLogic, saveAction, deleteAction,
+            reducerName, reducerState, reducerLogic, saveReducer, deleteReducer,
+            componentName, saveComponent, deleteComponent
+        } from '../../actions/List';
 
 class Form extends React.Component {
     constructor(props) {
@@ -28,6 +31,14 @@ class Form extends React.Component {
                 <input value={this.props.currentAction[0]} onChange={this.props.actionName} type="text" placeholder="action name" />
                 <input value={this.props.currentAction[1]} onChange={this.props.actionLogic} type="text" placeholder="action logic" />  
                 <button type="button" onClick={() => this.props.saveAction()}>Save Action</button> 
+                <ul>
+                    {Object.entries(this.props.actions).map(ele => {
+                        return  <li key={ele[0]}>
+                                    <Action actionName={ele[0]} actionLogic={ele[1]} />
+                                    <button type="button" onClick={() => this.props.deleteAction(ele[0])}>Delete</button>
+                                </li>
+                    })}
+                </ul>
 
                 {/* Reducers mini-Form */}
                 <h3>Add Reducer</h3>
@@ -35,11 +46,27 @@ class Form extends React.Component {
                 <input value={this.props.currentReducer[1]} onChange={this.props.reducerState} type="text" placeholder="reducer initial state" />  
                 <input value={this.props.currentReducer[2]} onChange={this.props.reducerLogic} type="text" placeholder="reducer logic" />  
                 <button type="button" onClick={() => this.props.saveReducer()}>Save Reducer</button> 
+                <ul>
+                    {Object.entries(this.props.reducers).map(ele => {
+                        return  <li key={ele[0]}>
+                                    <Reducer reducerName={ele[0]} reducerInitialState={ele[1][0]} reducerLogic={ele[1][1]} />
+                                    <button type="button" onClick={() => this.props.deleteReducer(ele[0])}>Delete</button>
+                                </li>
+                    })}
+                </ul>
 
                 {/* Components mini-Form */}
                 <h3>Add Component</h3>
                 <input value={this.props.currentComponent} onChange={this.props.componentName} type="text" placeholder="reducer name" />
-                <button type="button" onClick={() => this.props.saveComponent()}>Save Component</button> 
+                <button type="button" onClick={() => this.props.saveComponent()}>Save Component</button>
+                <ul>
+                    {Object.keys(this.props.components).map(ele => {
+                        return  <li key={ele}>
+                                    <ComponentFile componentName={ele} />
+                                    <button type="button" onClick={() => this.props.deleteComponent(ele)}>Delete</button>
+                                </li>
+                    })}
+                </ul> 
 
                 {/* Buttons for Full Form Submittal */}
                 <div>
@@ -73,9 +100,9 @@ const mapStateToProps = (state, props) => {
 const mapDispatchToProps = dispatch => {
     return bindActionCreators({
         storeNameChange,
-        actionName, actionLogic, saveAction,
-        reducerName, reducerState, reducerLogic, saveReducer,
-        componentName, saveComponent
+        actionName, actionLogic, saveAction, deleteAction,
+        reducerName, reducerState, reducerLogic, saveReducer, deleteReducer,
+        componentName, saveComponent, deleteComponent
     }, dispatch);
 }
 
@@ -99,6 +126,10 @@ Form = connect(
 export default Form;
 
 
+
+// actionNameAction={this.props.actionName}
+// actionLogicAction={this.props.actionLogic}
+// saveAction={this.props.saveAction}
 
 ////////////////////////////////////////////////////////////////////////
 // renderActions({ fields, meta: { error, submitFailed } }) {

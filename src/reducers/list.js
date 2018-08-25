@@ -4,14 +4,11 @@ const initialState = {
     },
     
     reducers: {
-        reducerName1: ['', '']
+        reducerName1: ['reducerInitialState1', 'reducerLogic1']
     },
 
     components: {
-        componentName1: {
-            actions: {},
-            reducers: {}
-        }
+        componentName1: {}
     },
 
     storeName: '',
@@ -34,6 +31,7 @@ export default (state = initialState, action) => {
                 storeName: action.e
             }
 
+
         ////////////////////////////////////
         case 'ACTION_NAME':
             return {
@@ -55,7 +53,13 @@ export default (state = initialState, action) => {
                 actions: newObj,
                 currentAction: ['','']
             }
-
+        case 'DELETE_ACTION':
+            let newDeleteActionObj = { ... state.actions };
+            delete newDeleteActionObj[action.chosenAction];
+            return {
+                ...state,
+                actions: newDeleteActionObj
+            }
 
         ////////////////////////////////////
         case 'REDUCER_NAME':
@@ -84,6 +88,14 @@ export default (state = initialState, action) => {
                 reducers: newRedObj,
                 currentReducer: ['','', '']
             }
+        case 'DELETE_REDUCER':
+            let newDeleteReducerObj = { ... state.reducers };
+            delete newDeleteReducerObj[action.chosenReducer];
+            return {
+                ...state,
+                reducers: newDeleteReducerObj
+            }
+
 
         ////////////////////////////////////
         case 'COMPONENT_NAME':
@@ -93,14 +105,21 @@ export default (state = initialState, action) => {
             }
         case 'SAVE_COMPONENT':
             const componentName = state.currentComponent;
-            const newCompObj = {};
+            const newCompObj = { ...state.components };
             newCompObj[componentName] = {};
             return {
                 ...state,
                 components: newCompObj,
                 currentComponent: ''
             }
-        
+        case 'DELETE_COMPONENT':
+            let newDeleteComponentObj = { ...state.components };
+            delete newDeleteComponentObj[action.chosenComponent];
+            return {
+                ...state,
+                components: newDeleteComponentObj
+            }
+
         ////////////////////////////////////
             
         default:

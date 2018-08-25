@@ -21,6 +21,11 @@ export const saveAction = () => ({
     type: 'SAVE_ACTION'
 })
 
+export const deleteAction = (chosenAction) => ({
+    type: 'DELETE_ACTION',
+    chosenAction
+})
+
 //////////////////////////////
 
 export const reducerName = (e) => ({
@@ -42,6 +47,11 @@ export const saveReducer = () => ({
     type: 'SAVE_REDUCER'
 })
 
+export const deleteReducer = (chosenReducer) => ({
+    type: 'DELETE_REDUCER',
+    chosenReducer
+})
+
 //////////////////////////////
 
 export const componentName = (e) => ({
@@ -51,4 +61,9 @@ export const componentName = (e) => ({
 
 export const saveComponent = () => ({
     type: 'SAVE_COMPONENT'
+})
+
+export const deleteComponent = (chosenComponent) => ({
+    type: 'DELETE_COMPONENT',
+    chosenComponent
 })
