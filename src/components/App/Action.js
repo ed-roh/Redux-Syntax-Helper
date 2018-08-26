@@ -1,6 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { editAction } from '../../actions/List';
 
-export default class Action extends React.Component {
+class Action extends React.Component {
     constructor(props) {
         super(props);
         this.handleEditing = this.handleEditing.bind(this);
@@ -13,7 +16,12 @@ export default class Action extends React.Component {
         }
     }
 
-    handleEditing(e) {
+    handleEditing() {
+        const previousActionName = this.props.actionName;
+        if (this.state.editing) {
+            this.props.editAction(previousActionName, this.state.changedName, this.state.changedLogic);
+        }
+
         this.setState((prevState) => {
             return { editing: !prevState.editing }
         })
@@ -54,3 +62,11 @@ export default class Action extends React.Component {
         )
     }
 }
+
+const mapDispatchToProps = dispatch => {
+    return bindActionCreators({
+        editAction
+    }, dispatch)
+}
+
+export default connect(null, mapDispatchToProps)(Action);

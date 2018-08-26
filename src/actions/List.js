@@ -21,6 +21,13 @@ export const saveAction = () => ({
     type: 'SAVE_ACTION'
 })
 
+export const editAction = (previousActionName, editedActionName, editedActionLogic) => ({
+    type: 'EDIT_ACTION',
+    previousActionName,
+    editedActionName,
+    editedActionLogic
+})
+
 export const deleteAction = (chosenAction) => ({
     type: 'DELETE_ACTION',
     chosenAction
@@ -47,6 +54,14 @@ export const saveReducer = () => ({
     type: 'SAVE_REDUCER'
 })
 
+export const editReducer = (previousReducerName, editedReducerName, editedReducerInitialState, editedReducerLogic) => ({
+    type: 'EDIT_REDUCER',
+    previousReducerName,
+    editedReducerName,
+    editedReducerInitialState,
+    editedReducerLogic
+})
+
 export const deleteReducer = (chosenReducer) => ({
     type: 'DELETE_REDUCER',
     chosenReducer
@@ -61,6 +76,12 @@ export const componentName = (e) => ({
 
 export const saveComponent = () => ({
     type: 'SAVE_COMPONENT'
+})
+
+export const editComponent = (previousComponentName, editedComponentName) => ({
+    type: 'EDIT_COMPONENT',
+    previousComponentName,
+    editedComponentName
 })
 
 export const deleteComponent = (chosenComponent) => ({

@@ -53,6 +53,15 @@ export default (state = initialState, action) => {
                 actions: newObj,
                 currentAction: ['','']
             }
+        case 'EDIT_ACTION':
+            const newEditActionObj = { ...state.actions }
+            delete newEditActionObj[action.previousActionName];
+            newEditActionObj[action.editedActionName] = action.editedActionLogic;
+            return {
+                ...state,
+                actions: newEditActionObj
+            }
+
         case 'DELETE_ACTION':
             let newDeleteActionObj = { ... state.actions };
             delete newDeleteActionObj[action.chosenAction];
@@ -60,6 +69,7 @@ export default (state = initialState, action) => {
                 ...state,
                 actions: newDeleteActionObj
             }
+
 
         ////////////////////////////////////
         case 'REDUCER_NAME':
@@ -88,6 +98,14 @@ export default (state = initialState, action) => {
                 reducers: newRedObj,
                 currentReducer: ['','', '']
             }
+        case 'EDIT_REDUCER':
+            const newEditReducerObj = { ...state.reducers }
+            delete newEditReducerObj[action.previousReducerName];
+            newEditReducerObj[action.editedReducerName] = [action.editedReducerInitialState, action.editedReducerLogic];
+            return {
+                ...state,
+                reducers: newEditReducerObj
+            }
         case 'DELETE_REDUCER':
             let newDeleteReducerObj = { ... state.reducers };
             delete newDeleteReducerObj[action.chosenReducer];
@@ -111,6 +129,14 @@ export default (state = initialState, action) => {
                 ...state,
                 components: newCompObj,
                 currentComponent: ''
+            }
+        case 'EDIT_COMPONENT':
+            const newEditComponentObj = { ...state.components }
+            delete newEditComponentObj[action.previousComponentName];
+            newEditComponentObj[action.editedComponentName] = {};
+            return {
+                ...state,
+                components: newEditComponentObj
             }
         case 'DELETE_COMPONENT':
             let newDeleteComponentObj = { ...state.components };
