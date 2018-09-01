@@ -3,29 +3,42 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { editReducer } from '../../actions/List';
 
+import Picky from 'react-picky';
+import 'react-picky/dist/picky.css';
+import { resolve } from 'path';
+
 class Reducer extends React.Component {
     constructor(props) {
         super(props);
         this.handleEditing = this.handleEditing.bind(this);
         this.handleEditingNameChange = this.handleEditingNameChange.bind(this);
         this.handleEditingInitialStateChange = this.handleEditingInitialStateChange.bind(this);
-        this.handleEditingLogicChange = this.handleEditingLogicChange.bind(this);
+        this.handleEditingActions = this.handleEditingActions.bind(this);
         this.state = {
             editing: false,
             changedName: this.props.reducerName,
             changedInitialState: this.props.reducerInitialState,
-            changedLogic: this.props.reducerLogic
+            changedActions: this.props.reducerActions,
+            actionsValue: []
         }
     }
 
     handleEditing() {
         const previousReducerName = this.props.reducerName;
+        console.log(this.props.reducers[previousReducerName][2]);
         if (this.state.editing) {
-            this.props.editReducer(previousReducerName, this.state.changedName, this.state.changedInitialState, this.state.changedLogic);
+            {/* (previousReducerName, p2, p3, p4, p5) => new Promise((resolve, reject) => {
+                this.props.editReducer(previousReducerName, p2, p3, p4, p5);
+                resolve();
+            })   */}
+            this.props.editReducer(previousReducerName, this.state.changedName, this.state.changedInitialState, this.state.actionsValue)
         }
 
-        this.setState((prevState) => {
-            return { editing: !prevState.editing }
+        this.setState(prevState => {
+            return { 
+                editing: !prevState.editing,
+                changedActions: this.props.reducers[this.props.reducerName][2]
+            }
         })
     }
 
@@ -37,13 +50,17 @@ class Reducer extends React.Component {
         this.setState({ changedInitialState: e.target.value })
     }
     
-    handleEditingLogicChange(e) {
-        this.setState({ changedLogic: e.target.value })
+
+    handleEditingActions(v) {
+        this.setState({ actionsValue: v })
     }
 
     render() {
         const viewStyle = {};
         const editStyle = {};
+        const bigList = Object.keys(this.props.actions).map(ele => {
+            return ele;
+        })
         
         if (this.state.editing) {
             viewStyle.display = 'none';
@@ -56,18 +73,38 @@ class Reducer extends React.Component {
                 <div style={viewStyle}>
                     {this.state.changedName} 
                     {this.state.changedInitialState}
-                    {this.state.changedLogic}
+                    <div>
+                        actions: {this.state.changedActions}
+                    </div>
                 </div>
                 
                 <div style={editStyle}>
                     <input type="text" value={this.state.changedName} onChange={this.handleEditingNameChange} />
                     <input type="text" value={this.state.changedInitialState} onChange={this.handleEditingInitialStateChange} />
-                    <input type="text" value={this.state.changedLogic} onChange={this.handleEditingLogicChange} />
+                    <Picky
+                        value={this.state.actionsValue}
+                        options={bigList}
+                        onChange={this.handleEditingActions}
+                        open={true}
+                        valueKey="id"
+                        labelKey="name"
+                        multiple={true}
+                        includeSelectAll={true}
+                        includeFilter={false}
+                        dropdownHeight={600}
+                    />
                 </div>
 
                 <button type="button" onClick={this.handleEditing}>{this.state.editing ? 'Save' : 'Edit'}</button>
             </div>
         )
+    }
+}
+
+const mapStateToProps = state => {
+    return {
+        actions: state.list.actions,
+        reducers: state.list.reducers
     }
 }
 
@@ -77,4 +114,4 @@ const mapDispatchToProps = dispatch => {
     }, dispatch)
 }
 
-export default connect(null, mapDispatchToProps)(Reducer);
+export default connect(mapStateToProps, mapDispatchToProps)(Reducer);

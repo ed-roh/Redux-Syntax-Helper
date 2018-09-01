@@ -10,7 +10,8 @@ class ComponentFile extends React.Component {
         this.handleEditingNameChange = this.handleEditingNameChange.bind(this);
         this.state = {
             editing: false,
-            changedName: this.props.componentName
+            changedName: this.props.componentName,
+            changedActions: this.props.componentActions
         }
     }
 
@@ -44,6 +45,9 @@ class ComponentFile extends React.Component {
                 <div style={viewStyle}>
                     {this.state.changedName} 
                     {this.state.changedLogic}
+                    <div>
+                        Actions: {this.state.changedActions}
+                    </div>
                 </div>
                 
                 <div style={editStyle}>

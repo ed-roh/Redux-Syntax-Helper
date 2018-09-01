@@ -1,12 +1,5 @@
 //////////////////////////////
 
-export const storeNameChange = (e) => ({
-    type: 'STORE_NAME_CHANGE',
-    e: e.target.value
-})
-
-//////////////////////////////
-
 export const actionName = (e) => ({
     type: 'ACTION_NAME',
     e: e.target.value
@@ -45,21 +38,21 @@ export const reducerState = (e) => ({
     e: e.target.value
 })
 
-export const reducerLogic = (e) => ({
-    type: 'REDUCER_LOGIC',
-    e: e.target.value
+export const connectingActions = (e) => ({
+    type: 'CONNECTING_ACTIONS',
+    e
 })
 
 export const saveReducer = () => ({
     type: 'SAVE_REDUCER'
 })
 
-export const editReducer = (previousReducerName, editedReducerName, editedReducerInitialState, editedReducerLogic) => ({
+export const editReducer = (previousReducerName, editedReducerName, editedReducerInitialState, editedActionsConnect) => ({
     type: 'EDIT_REDUCER',
     previousReducerName,
     editedReducerName,
     editedReducerInitialState,
-    editedReducerLogic
+    editedActionsConnect
 })
 
 export const deleteReducer = (chosenReducer) => ({
@@ -72,6 +65,11 @@ export const deleteReducer = (chosenReducer) => ({
 export const componentName = (e) => ({
     type: 'COMPONENT_NAME',
     e: e.target.value
+})
+
+export const connectingActionsToComponents = (e) => ({
+    type: 'CONNECTING_ACTIONS_TO_COMPONENTS',
+    e
 })
 
 export const saveComponent = () => ({
@@ -87,4 +85,26 @@ export const editComponent = (previousComponentName, editedComponentName) => ({
 export const deleteComponent = (chosenComponent) => ({
     type: 'DELETE_COMPONENT',
     chosenComponent
+})
+
+//////////////////////////////
+
+export const outputStore = () => ({
+    type: 'OUTPUT_STORE'
+})
+
+export const outputIndex = () => ({
+    type: 'OUTPUT_INDEX'
+})
+
+export const outputActions = () => ({
+    type: 'OUTPUT_ACTIONS'
+}) 
+
+export const outputReducers = () => ({
+    type: 'OUTPUT_REDUCERS'
+})
+
+export const outputComponents = () => ({
+    type: 'OUTPUT_COMPONENTS'
 })

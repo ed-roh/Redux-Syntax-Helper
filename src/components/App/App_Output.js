@@ -8,22 +8,35 @@ const Output = props => {
             <h2>Output</h2>
             <Legend />
 
+            <p>///////////////////////////////////////////////////////////</p>
             <h4>Store:</h4>
-            <p>{props.storeName}</p>
+            <p>{props.outputStore}</p>
 
-            <h4>currentReducer:</h4>
-            <p>{props.currentReducer[0]}</p>
-            <p>{props.currentReducer[1]}</p>
-            <p>{props.currentReducer[2]}</p>
+            <p>///////////////////////////////////////////////////////////</p>
+            <h4>Index:</h4>
+            <p>{props.outputIndex}</p>
 
+            <p>///////////////////////////////////////////////////////////</p>
             <h4>Actions:</h4>
-            <p>{Object.entries(props.actions)}</p>
+            <p>{props.outputActions}</p>
 
+            <p>///////////////////////////////////////////////////////////</p>
             <h4>Reducers:</h4>
-            <p>{Object.entries(props.reducers)}</p>
+            {props.outputReducers.map(ele => {
+                return  <div key={ele[0]}>
+                            <h5>{ele[0]}</h5>
+                            <p>{ele[1]}</p>
+                        </div>
+            })}
             
+            <p>///////////////////////////////////////////////////////////</p>
             <h4>Components:</h4>
-            <p>{props.currentComponent}</p>
+            {props.outputComponents.map(ele => {
+                return  <div key={ele[0]}>
+                            <h5>{ele[0]}</h5>
+                            <p>{ele[1]}</p>
+                        </div>
+            })}
         </div>
     );
 }
@@ -33,10 +46,14 @@ const mapStateToProps = state => {
         actions: state.list.actions,
         reducers: state.list.reducers,
         components: state.list.components,
-        storeName: state.list.storeName,
         currentAction: state.list.currentAction,
         currentReducer: state.list.currentReducer,
-        currentComponent: state.list.currentComponent
+        currentComponent: state.list.currentComponent,
+        outputStore: state.list.outputStore,
+        outputIndex: state.list.outputIndex,
+        outputActions: state.list.outputActions,
+        outputReducers: state.list.outputReducers,
+        outputComponents: state.list.outputComponents
     }
 }
 
