@@ -1,3 +1,143 @@
-body {
-    white-space: pre;
+// colors choice 2
+$c-bg: #f0f5f9;
+$c-font: #1e2022;
+$c-shade1: #c9d6de;
+$c-shade2: #52616a;
+
+// --------------------------------
+
+/* font */
+$f-title: 'Ubuntu', Sans-Serif;
+$f-title-size: 4.8rem;
+$f-text: 'Open Sans', Sans-Serif;
+$f-text-size: 1.5rem;
+
+// --------------------------------
+
+
+*, *::after, *::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-family: $f-text;
+    font-size: $f-text-size;
+}
+
+.header {
+    background-color: $c-shade1;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    #topLeft {
+        
+    }
+
+    #topRight {
+       
+        
+        .links {
+            margin: 0 20px;
+        }
+    }
+}
+
+ul {
+    list-style-type: none;
+}
+
+.main {
+    display: flex;
+    justify-content: space-between;
+
+    .mainLeft {
+        width: 50%;
+
+        .form_section {
+            margin: 40px 30px;
+            padding: 15px;
+            border: 1px solid $c-font;
+        }
+    }
+    
+    .mainRight {
+        width: 50%;
+
+        .output {
+            margin: 40px 30px;
+            white-space: pre;
+
+            .output_section {
+                padding: 15px;
+                border: 1px solid $c-font;
+            }
+
+        }
+
+    }
+    
+}
+
+.footer {
+    background-color: $c-shade1;
+    padding: 60px 30px 30px 30px;
+
+    .footer_top {
+        display: flex;
+        justify-content: flex-start;
+
+        .footer_topRight {
+            margin-left: 10px;
+        }
+        
+        .githubIcon {
+            width: 40px;
+            height: 40px;
+        }
+
+        .love {
+            font-size: 1.3rem;
+        }
+    }
+
+    .footer_bot {
+        margin: 10px 0;
+        font-size: 1.2rem;
+    }
+}
+
+// Accordion
+ /* Style the buttons that are used to open and close the accordion panel */
+ .accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .accordion:hover {
+    background-color: #ccc;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+.panel {
+    padding: 0 18px;
+    background-color: rgb(247, 247, 247);
+    overflow: hidden;
+} 
+
+

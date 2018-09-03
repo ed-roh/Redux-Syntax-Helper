@@ -7,7 +7,7 @@ export const actionName = (e) => ({
 
 export const actionLogic = (e) => ({
     type: 'ACTION_LOGIC',
-    e: e.target.value
+    e
 })
 
 export const saveAction = () => ({
@@ -35,7 +35,7 @@ export const reducerName = (e) => ({
 
 export const reducerState = (e) => ({
     type: 'REDUCER_STATE',
-    e: e.target.value
+    e
 })
 
 export const connectingActions = (e) => ({

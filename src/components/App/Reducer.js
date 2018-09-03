@@ -1,11 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { editReducer } from '../../actions/List';
+import { editReducer, deleteReducer } from '../../actions/List';
 
 import Picky from 'react-picky';
 import 'react-picky/dist/picky.css';
-import { resolve } from 'path';
+
+// code block syntax highlighter plugin import
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { xcode } from 'react-syntax-highlighter/styles/hljs/xcode';
+
+// code block editor plugin import
+import brace from 'brace';
+import AceEditor from 'react-ace';
+import 'brace/mode/java';
+import 'brace/theme/kuroir';
+import 'brace/theme/xcode';
 
 class Reducer extends React.Component {
     constructor(props) {
@@ -14,8 +24,10 @@ class Reducer extends React.Component {
         this.handleEditingNameChange = this.handleEditingNameChange.bind(this);
         this.handleEditingInitialStateChange = this.handleEditingInitialStateChange.bind(this);
         this.handleEditingActions = this.handleEditingActions.bind(this);
+        this.handleAccordion = this.handleAccordion.bind(this);
         this.state = {
             editing: false,
+            accordion: false,
             changedName: this.props.reducerName,
             changedInitialState: this.props.reducerInitialState,
             changedActions: this.props.reducerActions,
@@ -39,6 +51,12 @@ class Reducer extends React.Component {
                 editing: !prevState.editing,
                 changedActions: this.props.reducers[this.props.reducerName][2]
             }
+        })
+    }
+
+    handleAccordion() {
+        this.setState((prevState) => {
+            return { accordion: !prevState.accordion }
         })
     }
 
@@ -70,32 +88,46 @@ class Reducer extends React.Component {
 
         return (
             <div>
-                <div style={viewStyle}>
-                    {this.state.changedName} 
-                    {this.state.changedInitialState}
-                    <div>
-                        actions: {this.state.changedActions}
+                <button type="button" onClick={this.handleAccordion} className="accordion">{this.state.changedName}</button>
+                {this.state.accordion ? 
+                    <div className="panel">
+                        <div style={viewStyle}>
+                            {this.state.changedName} 
+                            <SyntaxHighlighter language='javascript' style={xcode}>{this.state.changedInitialState}</SyntaxHighlighter> 
+                            <div>
+                                actions: {this.state.changedActions}
+                            </div>
+                        </div>
+                        
+                        <div style={editStyle}>
+                            <input type="text" value={this.state.changedName} onChange={this.handleEditingNameChange} />
+                            <AceEditor
+                                height="80px"
+                                width="100%"
+                                mode="javascript"
+                                theme="xcode"
+                                value={this.state.changedInitialState}
+                                onChange={this.handleEditingInitialStateChange}
+                                name="aceEditTest"
+                                editorProps={{$blockScrolling: true}}
+                            />  
+                            <Picky
+                                value={this.state.actionsValue}
+                                options={bigList}
+                                onChange={this.handleEditingActions}
+                                open={true}
+                                valueKey="id"
+                                labelKey="name"
+                                multiple={true}
+                                includeSelectAll={true}
+                                includeFilter={false}
+                                dropdownHeight={600}
+                            />
+                        </div>
+                        <button type="button" onClick={this.handleEditing}>{this.state.editing ? 'Save' : 'Edit'}</button>
+                        <button type="button" onClick={() => this.props.deleteReducer(this.props.reducerName)}>Delete</button>
                     </div>
-                </div>
-                
-                <div style={editStyle}>
-                    <input type="text" value={this.state.changedName} onChange={this.handleEditingNameChange} />
-                    <input type="text" value={this.state.changedInitialState} onChange={this.handleEditingInitialStateChange} />
-                    <Picky
-                        value={this.state.actionsValue}
-                        options={bigList}
-                        onChange={this.handleEditingActions}
-                        open={true}
-                        valueKey="id"
-                        labelKey="name"
-                        multiple={true}
-                        includeSelectAll={true}
-                        includeFilter={false}
-                        dropdownHeight={600}
-                    />
-                </div>
-
-                <button type="button" onClick={this.handleEditing}>{this.state.editing ? 'Save' : 'Edit'}</button>
+                : null}
             </div>
         )
     }
@@ -110,8 +142,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return bindActionCreators({
-        editReducer
+        editReducer,
+        deleteReducer
     }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Reducer);
+
+
+// <input type="text" value={this.state.changedInitialState} onChange={this.handleEditingInitialStateChange} />
