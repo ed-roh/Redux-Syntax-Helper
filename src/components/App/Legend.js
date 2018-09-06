@@ -2,7 +2,7 @@ import React from 'react';
 
 const Legend = () => (
     <div>
-        <p>I am the Legend</p>
+        <p>Key/Legend</p>
     </div>
 );
 

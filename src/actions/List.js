@@ -108,3 +108,10 @@ export const outputReducers = () => ({
 export const outputComponents = () => ({
     type: 'OUTPUT_COMPONENTS'
 })
+
+
+//////////////////////////////
+
+export const resetEverything = () => ({
+    type: 'RESET_EVERYTHING'
+})

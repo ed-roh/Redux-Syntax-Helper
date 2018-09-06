@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "file-loader": "^2.0.0",
     "react": "^16.4.2",
     "react-ace": "^6.1.4",
     "react-dom": "^16.4.2",
@@ -19,7 +20,8 @@
     "react-router-dom": "^4.3.1",
     "react-syntax-highlighter": "^8.0.1",
     "redux": "^4.0.0",
-    "redux-form": "^7.4.2"
+    "redux-form": "^7.4.2",
+    "url-loader": "^1.1.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

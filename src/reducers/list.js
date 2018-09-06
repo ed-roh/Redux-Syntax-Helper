@@ -1,21 +1,23 @@
 const initialState = {
     actions: {
-        actionName1: 'logic1'
     },
     
     reducers: {
-        reducerName1: ['reducerInitialState1', [['actionName3','logic3'], ['actionName4', 'logic4']]]
     },
 
     components: {
-        componentName1: {
-            actions: [['actionName5', 'logic5'], ['actionName6', 'logic6']]
-        }
     },
 
-    currentAction: ['',''],
+    currentAction: ['', `// access old states with "state." 
+// access new states with "action."
+const newState = [ ...state, action.newItem ];
+return {
+    ...state,
+    "yourProp" : newState
+}
+`],
 
-    currentReducer: ['', ''],
+    currentReducer: ['', `"yourProp": "Your array/string/object/etc"`],
     
     currentComponent: '',
 
@@ -29,9 +31,9 @@ const initialState = {
     
     outputActions: '',
 
-    outputReducers: [['r1', 'string'], ['r2', 'string']],
+    outputReducers: [],
 
-    outputComponents: [['c1', 'string'], ['c2', 'string']]
+    outputComponents: []
 }
 
 
@@ -254,7 +256,7 @@ ReactDOM.render(
             const writtenReducers = Object.entries(state.reducers).reduce((acc, curr) => {
                 let listOfCases = curr[1][1].reduce((acc, curr) => {
                     acc += 
-`       case '${curr[0]}':
+`       case '${curr[0].replace(/([A-Z])/g, '_$1').toUpperCase()}':
             ${curr[1]} \n`
                     return acc;
                 },'').replace(/\s+$/g, "");
@@ -327,7 +329,36 @@ export default connect(null, mapDispatchToProps)(${curr[0]});`
 
         ////////////////////////////////////
 
+        case 'RESET_EVERYTHING':
+            return {
+                ...initialState
+            }
+
+        ////////////////////////////////////
+        
         default:
             return state;
     }
 }
+
+
+
+
+////
+// actions: {
+//     actionName1: 'logic1'
+// },
+
+// reducers: {
+//     reducerName1: ['reducerInitialState1', [['actionName3','logic3'], ['actionName4', 'logic4']]]
+// },
+
+// components: {
+//     componentName1: {
+//         actions: [['actionName5', 'logic5'], ['actionName6', 'logic6']]
+//     }
+// },
+
+// outputReducers: [['r1', 'string'], ['r2', 'string']],
+
+// outputComponents: [['c1', 'string'], ['c2', 'string']]

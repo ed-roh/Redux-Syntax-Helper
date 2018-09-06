@@ -7,8 +7,8 @@ const Footer = () => (
                 <img className="githubIcon" src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" />
             </div>
             <div className="footer_topRight">
-                <h4 className="followMe">Follow me on GitHub</h4>
-                <p className="love">Leave some Github Star Love</p>
+                <a target="_blank" className="footerGithubLink" href="https://github.com/the3ddy/Redux-Syntax-Helper"><h4 className="followMe">Check this Project out on GitHub</h4></a>
+                <p className="love">Leave some Github Star love</p>
             </div>
         </div>
         <div className="footer_bot">

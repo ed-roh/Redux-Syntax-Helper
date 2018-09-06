@@ -66,12 +66,26 @@ class Action extends React.Component {
 
         return (
             <div>
-                <button type="button" onClick={this.handleAccordion} className="accordion">{this.state.changedName}</button>
+                <button type="button" onClick={this.handleAccordion} className="accordion button_layout">
+                <div className="button_name">
+                    {this.state.changedName}
+                </div>
+                <div className="button_icon ">{this.state.accordion ? 
+                    <svg className="arrows" version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+                        <polyline strokeLinejoin="miter" points="2,14 10,6 18,14" />
+                    </svg> :
+                    <svg className="arrows" version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+                        <polyline strokeLinejoin="miter" points="2,6 10,14 18,6" />
+                    </svg>
+                }</div>
+                </button>
+
+               
                 {this.state.accordion ? 
                     <div className="panel">
                         <div style={viewStyle}>
-                            {this.state.changedName}
-                            <SyntaxHighlighter language='javascript' style={xcode}>{this.state.changedLogic}</SyntaxHighlighter> 
+                            <div className="insideEdit">{this.state.changedName}</div>
+                            <SyntaxHighlighter className="insideEdit logicEdit" language='javascript' style={xcode}>{this.state.changedLogic}</SyntaxHighlighter> 
                         </div>
                         
                         <div style={editStyle}>
@@ -88,8 +102,10 @@ class Action extends React.Component {
                             />  
                         </div>
 
-                        <button type="button" onClick={this.handleEditing}>{this.state.editing ? 'Save' : 'Edit'}</button>
-                        <button type="button" onClick={() => this.props.deleteAction(this.props.actionName)}>Delete</button>
+                        <div className="insideButtons">
+                            {/* <button type="button" onClick={this.handleEditing}>{this.state.editing ? 'Save' : 'Edit'}</button> */}
+                            <button className="insideDeleteButton" type="button" onClick={() => this.props.deleteAction(this.props.actionName)}>Delete</button>
+                        </div>
                     </div>
                 : null }
             </div>

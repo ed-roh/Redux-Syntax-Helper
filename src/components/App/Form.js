@@ -9,7 +9,8 @@ import {
             actionName, actionLogic, saveAction,
             reducerName, reducerState, connectingActions, saveReducer,
             componentName, connectingActionsToComponents, saveComponent, 
-            outputStore, outputIndex, outputActions, outputReducers, outputComponents
+            outputStore, outputIndex, outputActions, outputReducers, outputComponents,
+            resetEverything
 } from '../../actions/List';
 
 // multi-selector plugin import
@@ -27,6 +28,7 @@ import 'brace/theme/xcode';
 class Form extends React.Component {
     constructor(props) {
         super(props);
+        this.handleReset = this.handleReset.bind(this);
     }
 
     onSubmit(values) {
@@ -35,6 +37,10 @@ class Form extends React.Component {
         this.props.outputActions();
         this.props.outputReducers();
         this.props.outputComponents();
+    }
+
+    handleReset() {
+        this.props.resetEverything();
     }
 
     render() {
@@ -46,14 +52,20 @@ class Form extends React.Component {
         return (
             <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
 
+                <div className="mainTitles">
+                    <h2>Form</h2>
+                    <hr className="titleLine" />
+                </div>
                 
                 {/* Actions mini-Form */}
+                <h3 className="actionTitle">Add Action Creators:</h3>
                 <div className="form_actions form_section">
-                    <h3>Add Action Creator:</h3>
-                    <input value={this.props.currentAction[0]} onChange={this.props.actionName} type="text" placeholder="action name" />  
+                    <h4>Action Name:</h4>
+                    <input className="inputter" value={this.props.currentAction[0]} onChange={this.props.actionName} type="text" placeholder="action name" />  
                     <h4>Action Logic:</h4>
                     <AceEditor
-                        height="100px"
+                        className="ace"
+                        height="200px"
                         width="100%"
                         mode="javascript"
                         theme="xcode"
@@ -62,8 +74,9 @@ class Form extends React.Component {
                         name="aceEditTest"
                         editorProps={{$blockScrolling: true}}
                     />              
-                    <button type="button" onClick={() => this.props.saveAction()}>Save Action</button> 
-                    <ul>
+                    <button className="saveButton" type="button" onClick={() => this.props.saveAction()}>Save Action</button> 
+                    <hr />
+                    <ul className="list">
                         {Object.entries(this.props.actions).map(ele => {
                             return  <li key={ele[0]}>
                                         <Action actionName={ele[0]} actionLogic={ele[1]} />
@@ -75,11 +88,13 @@ class Form extends React.Component {
 
 
                 {/* Reducers mini-Form */}
+                <h3 className="reducerTitle">Add Reducers:</h3>
                 <div className="form_reducers form_section">
-                    <h3>Add Reducer</h3>
-                    <input value={this.props.currentReducer[0]} onChange={this.props.reducerName} type="text" placeholder="reducer name" />
+                    <h4>Reducer Name:</h4>
+                    <input className="inputter" value={this.props.currentReducer[0]} onChange={this.props.reducerName} type="text" placeholder="reducer name" />
                     <h4>Reducer Initial State:</h4>
                     <AceEditor
+                        className="ace"
                         height="100px"
                         width="100%"
                         mode="javascript"
@@ -90,6 +105,7 @@ class Form extends React.Component {
                         editorProps={{$blockScrolling: true}}
                     />    
                     <Picky
+                        className="multiSelector"
                         value={this.props.actionReducerConnect}
                         options={bigList}
                         onChange={this.props.connectingActions}
@@ -101,8 +117,9 @@ class Form extends React.Component {
                         includeFilter={false}
                         dropdownHeight={600}
                     />
-                    <button type="button" onClick={() => this.props.saveReducer()}>Save Reducer</button> 
-                    <ul>
+                    <button className="saveButton" type="button" onClick={() => this.props.saveReducer()}>Save Reducer</button> 
+                    <hr />
+                    <ul className="list">
                         {Object.entries(this.props.reducers).map(ele => {
                             return  <li key={ele[0]}>
                                         <Reducer reducerName={ele[0]} reducerInitialState={ele[1][0]} reducerActions={ele[1][1]} />
@@ -113,10 +130,12 @@ class Form extends React.Component {
 
 
                 {/* Components mini-Form */}
+                <h3 className="componentTitle">Add Components:</h3>
                 <div className="form_components form_section">
-                    <h3>Add Component</h3>
-                    <input value={this.props.currentComponent} onChange={this.props.componentName} type="text" placeholder="component name" />
+                    <h4>Component Name:</h4>
+                    <input className="inputter" value={this.props.currentComponent} onChange={this.props.componentName} type="text" placeholder="component name" />
                     <Picky
+                        className="multiSelector2"
                         value={this.props.actionComponentConnect}
                         options={bigList}
                         onChange={this.props.connectingActionsToComponents}
@@ -128,8 +147,9 @@ class Form extends React.Component {
                         includeFilter={false}
                         dropdownHeight={600}
                     />
-                    <button type="button" onClick={() => this.props.saveComponent()}>Save Component</button>
-                    <ul>
+                    <button className="saveButton" type="button" onClick={() => this.props.saveComponent()}>Save Component</button>
+                    <hr />
+                    <ul className="list">
                         {Object.entries(this.props.components).map(ele => {
                             return  <li key={ele[0]}>
                                         <ComponentFile componentName={ele[0]} componentActions={ele[1].actions} />
@@ -141,8 +161,8 @@ class Form extends React.Component {
 
 
                 {/* Buttons for Full Form Submittal */}
-                <div className="form_buttons form_section">
-                    <button type="button" disabled={pristine || submitting} onClick={reset}>
+                <div className="form_buttons">
+                    <button className="reset" type="button" onClick={this.handleReset}>
                         Reset Values
                     </button>
                     <button type="submit" disabled={submitting}>
@@ -180,7 +200,8 @@ const mapDispatchToProps = dispatch => {
         actionName, actionLogic, saveAction, 
         reducerName, reducerState, connectingActions, saveReducer,
         componentName, connectingActionsToComponents, saveComponent,
-        outputStore, outputIndex, outputActions, outputReducers, outputComponents
+        outputStore, outputIndex, outputActions, outputReducers, outputComponents,
+        resetEverything
     }, dispatch);
 }
 
