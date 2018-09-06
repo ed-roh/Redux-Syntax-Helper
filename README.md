@@ -1,7 +1,7 @@
 # Redux-Syntax-Helper
 A tool to help you write the Syntax for Redux.
 
-## Link: 
+## Link: http://reduxsyntaxhelper.com/
 
 ## Why this Tool?
 I've had the experience of the difficulties (as well as many others) when encountering Redux for the first time.
