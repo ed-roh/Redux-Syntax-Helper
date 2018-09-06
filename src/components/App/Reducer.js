@@ -107,11 +107,16 @@ class Reducer extends React.Component {
                             <div className="insideEdit">{this.state.changedName}</div>
                             <SyntaxHighlighter className="insideEdit insideLogic" language='javascript' style={xcode}>{this.state.changedInitialState}</SyntaxHighlighter> 
                             <div className="insideEdit">
-                                actions: {this.state.changedActions}
+                                actions: 
+                                <ul>
+                                    {this.state.changedActions.map(ele => {
+                                        return <li className="actionLister" key={ele[0]}>{ele[0]}</li>}
+                                    )}
+                                </ul>
                             </div>
                         </div>
                         
-                        <div style={editStyle}>
+                        {/* <div style={editStyle}>
                             <input type="text" value={this.state.changedName} onChange={this.handleEditingNameChange} />
                             <AceEditor
                                 height="80px"
@@ -135,7 +140,7 @@ class Reducer extends React.Component {
                                 includeFilter={false}
                                 dropdownHeight={600}
                             />
-                        </div>
+                        </div> */}
                         {/* <button type="button" onClick={this.handleEditing}>{this.state.editing ? 'Save' : 'Edit'}</button> */}
                         <button className="insideDeleteButton" type="button" onClick={() => this.props.deleteReducer(this.props.reducerName)}>Delete</button>
                     </div>

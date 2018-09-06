@@ -70,13 +70,18 @@ class ComponentFile extends React.Component {
                             <div style={viewStyle}>
                                 <div className="insideEdit">{this.state.changedName}</div>
                                 <div className="insideEdit">
-                                    Actions: {this.state.changedActions}
+                                    Actions: 
+                                    <ul>
+                                        {this.state.changedActions.map(ele => {
+                                            return <li className="actionLister" key={ele[0]}>{ele[0]}</li>}
+                                        )}
+                                    </ul>
                                 </div>
                             </div>
                             
-                            <div style={editStyle}>
+                            {/* <div style={editStyle}>
                                 <input type="text" value={this.state.changedName} onChange={this.handleEditingNameChange} />
-                            </div>
+                            </div> */}
 
                             {/* <button type="button" onClick={this.handleEditing}>{this.state.editing ? 'Save' : 'Edit'}</button> */}
                             <button className="insideDeleteButton" type="button" onClick={() => this.props.deleteComponent(this.props.componentName)}>Delete</button>

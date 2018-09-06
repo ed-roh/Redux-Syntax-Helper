@@ -88,7 +88,7 @@ class Action extends React.Component {
                             <SyntaxHighlighter className="insideEdit logicEdit" language='javascript' style={xcode}>{this.state.changedLogic}</SyntaxHighlighter> 
                         </div>
                         
-                        <div style={editStyle}>
+                        {/* <div style={editStyle}>
                             <input type="text" value={this.state.changedName} onChange={this.handleEditingNameChange} />
                             <AceEditor
                                 height="80px"
@@ -100,7 +100,7 @@ class Action extends React.Component {
                                 name="aceEditTest"
                                 editorProps={{$blockScrolling: true}}
                             />  
-                        </div>
+                        </div> */}
 
                         <div className="insideButtons">
                             {/* <button type="button" onClick={this.handleEditing}>{this.state.editing ? 'Save' : 'Edit'}</button> */}

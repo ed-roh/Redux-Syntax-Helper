@@ -160,6 +160,7 @@ h4 {
 
             .ace {
                 border: 1px solid rgb(185, 185, 185);
+                background-color: rgb(246, 246, 246);
             }
             
         }
@@ -291,6 +292,11 @@ h4 {
         
         .logicEdit {
             margin-left: 5px;
+        }
+
+        .actionLister {
+            margin-left: 10px;
+            font-size: 1.0rem;
         }
 
         .insideDeleteButton {

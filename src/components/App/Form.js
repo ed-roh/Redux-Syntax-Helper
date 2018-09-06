@@ -64,8 +64,10 @@ class Form extends React.Component {
                     <input className="inputter" value={this.props.currentAction[0]} onChange={this.props.actionName} type="text" placeholder="action name" />  
                     <h4>Action Logic:</h4>
                     <AceEditor
+                        showGutter={false}
+                        highlightActiveLine={false}
                         className="ace"
-                        height="200px"
+                        height="150px"
                         width="100%"
                         mode="javascript"
                         theme="xcode"
@@ -94,6 +96,8 @@ class Form extends React.Component {
                     <input className="inputter" value={this.props.currentReducer[0]} onChange={this.props.reducerName} type="text" placeholder="reducer name" />
                     <h4>Reducer Initial State:</h4>
                     <AceEditor
+                        highlightActiveLine={false}
+                        showGutter={false}
                         className="ace"
                         height="100px"
                         width="100%"

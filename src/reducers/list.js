@@ -254,12 +254,13 @@ ReactDOM.render(
         case 'OUTPUT_REDUCERS':
 
             const writtenReducers = Object.entries(state.reducers).reduce((acc, curr) => {
-                let listOfCases = curr[1][1].reduce((acc, curr) => {
+                let listOfCases = curr[1][1].reduce((acc, c) => {
+                    let actionLogicInReducer = c[1].replace(/\n/g, "\n            ");
                     acc += 
-`       case '${curr[0].replace(/([A-Z])/g, '_$1').toUpperCase()}':
-            ${curr[1]} \n`
+`       case '${c[0].replace(/([A-Z])/g, '_$1').toUpperCase()}':
+            ${actionLogicInReducer}\n` 
                     return acc;
-                },'').replace(/\s+$/g, "");
+                },'\n\t//// Logic for Each Action ////\n');
                 // iterate through action names and logic here
                 let stringer =
 `const initialState = {
